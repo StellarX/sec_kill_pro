@@ -28,7 +28,7 @@ public class MailService {
     private static final Logger log= LoggerFactory.getLogger(MailService.class);
 
     @Autowired
-    private JavaMailSender mailSender;
+    private JavaMailSender mailSender; // Java 发送邮件的组件
 
     @Autowired
     private Environment env;
@@ -42,9 +42,9 @@ public class MailService {
         try {
             SimpleMailMessage message=new SimpleMailMessage();
             message.setFrom(env.getProperty("mail.send.from"));
-            message.setTo(dto.getTos());
-            message.setSubject(dto.getSubject());
-            message.setText(dto.getContent());
+            message.setTo(dto.getTos()); // 接收人
+            message.setSubject(dto.getSubject()); // 主题
+            message.setText(dto.getContent()); // 内容
             mailSender.send(message);
 
             log.info("发送简单文本文件-发送成功!");

@@ -64,7 +64,7 @@ public class KillController {
         BaseResponse response = new BaseResponse(StatusCode.Success); // access succeed
         try {
             //Boolean res=killService.killItem(dto.getKillId(),userId);
-            Boolean res=killService.killItem(dto.getKillId(),userId);
+            Boolean res=killService.killItem(dto.getKillId(),userId);// 秒杀核心业务逻辑的处理
             if (!res){
                 return new BaseResponse(StatusCode.Fail.getCode(),"哈哈~商品已抢购完毕或者不在抢购时间段哦!");
             }

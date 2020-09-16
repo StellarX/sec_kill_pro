@@ -110,7 +110,7 @@ public class RabbitmqConfig {
     @Bean
     public Queue successKillDeadQueue(){
         Map<String, Object> argsMap= Maps.newHashMap();
-        argsMap.put("x-dead-letter-exchange",env.getProperty("mq.kill.item.success.kill.dead.exchange"));
+        argsMap.put("x-dead-letter-exchange",env.getProperty("mq.kill.item.success.kill.dead.exchange")); 
         argsMap.put("x-dead-letter-routing-key",env.getProperty("mq.kill.item.success.kill.dead.routing.key"));
         return new Queue(env.getProperty("mq.kill.item.success.kill.dead.queue"),true,false,false,argsMap);
     }

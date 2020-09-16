@@ -47,7 +47,7 @@ public class RabbitSenderService {
                 KillSuccessUserInfo info=itemKillSuccessMapper.selectByCode(orderNo);
                 if (info!=null){
                     //TODO:rabbitmq发送消息的逻辑
-                    rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+                    rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter()); // 消息转化格式
                     rabbitTemplate.setExchange(env.getProperty("mq.kill.item.success.email.exchange"));
                     rabbitTemplate.setRoutingKey(env.getProperty("mq.kill.item.success.email.routing.key"));
 
@@ -101,31 +101,3 @@ public class RabbitSenderService {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

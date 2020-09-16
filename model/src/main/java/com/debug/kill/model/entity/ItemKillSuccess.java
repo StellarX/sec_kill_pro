@@ -6,7 +6,7 @@ import java.util.Date;
 
 @ToString
 public class ItemKillSuccess {
-    private String code;
+    private String code; //订单编号
 
     private Integer itemId;
 
