@@ -44,7 +44,7 @@ public class RabbitSenderService {
 
         try {
             if (StringUtils.isNotBlank(orderNo)){
-                KillSuccessUserInfo info=itemKillSuccessMapper.selectByCode(orderNo);
+                KillSuccessUserInfo info=itemKillSuccessMapper. selectByCode(orderNo);
                 if (info!=null){
                     //TODO:rabbitmq发送消息的逻辑
                     rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter()); // 消息转化格式
@@ -78,14 +78,14 @@ public class RabbitSenderService {
             if (StringUtils.isNotBlank(orderCode)){
                 KillSuccessUserInfo info=itemKillSuccessMapper.selectByCode(orderCode);
                 if (info!=null){
-                    rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
-                    rabbitTemplate.setExchange(env.getProperty("mq.kill.item.success.kill.dead.prod.exchange"));
-                    rabbitTemplate.setRoutingKey(env.getProperty("mq.kill.item.success.kill.dead.prod.routing.key"));
+                    rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter()); // 设置消息传输格式
+                    rabbitTemplate.setExchange(env.getProperty("mq.kill.item.success.kill.dead.prod.exchange"));// 设置基本交换机
+                    rabbitTemplate.setRoutingKey(env.getProperty("mq.kill.item.success.kill.dead.prod.routing.key")); // 基本路由
                     rabbitTemplate.convertAndSend(info, new MessagePostProcessor() {
                         @Override
                         public Message postProcessMessage(Message message) throws AmqpException {
                             MessageProperties mp=message.getMessageProperties();
-                            mp.setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+                            mp.setDeliveryMode(MessageDeliveryMode.PERSISTENT); // 消息传输模式 持久化
                             mp.setHeader(AbstractJavaTypeMapper.DEFAULT_CONTENT_CLASSID_FIELD_NAME,KillSuccessUserInfo.class);
 
                             //TODO：动态设置TTL(为了测试方便，暂且设置10s)

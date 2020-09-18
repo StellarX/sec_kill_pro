@@ -58,7 +58,7 @@ public class RabbitReceiverService {
      * 用户秒杀成功后超时未支付-监听者
      * @param info
      */
-    @RabbitListener(queues = {"${mq.kill.item.success.kill.dead.real.queue}"},containerFactory = "singleListenerContainer")
+    @RabbitListener(queues = {"${mq.kill.item.success.kill.dead.real.queue}"},containerFactory = "singleListenerContainer") // 多实例监听者（为了支持高并发）
     public void consumeExpireOrder(KillSuccessUserInfo info){
         try {
             log.info("用户秒杀成功后超时未支付-监听者-接收消息:{}",info);
@@ -66,7 +66,7 @@ public class RabbitReceiverService {
             if (info!=null){
                 ItemKillSuccess entity=itemKillSuccessMapper.selectByPrimaryKey(info.getCode());
                 if (entity!=null && entity.getStatus().intValue()==0){
-                    itemKillSuccessMapper.expireOrder(info.getCode());
+                    itemKillSuccessMapper.expireOrder(info.getCode()); //失效该订单
                 }
             }
         }catch (Exception e){
@@ -74,15 +74,3 @@ public class RabbitReceiverService {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
