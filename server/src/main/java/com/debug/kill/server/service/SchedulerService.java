@@ -56,6 +56,7 @@ public class SchedulerService {
         }
     }
 
+    //测试多个定时任务
 //    @Scheduled(cron = "0/11 * * * * ?")
 //    public void schedulerExpireOrdersV2(){
 //        log.info("v2的定时任务----");
@@ -66,39 +67,3 @@ public class SchedulerService {
 //        log.info("v3的定时任务----");
 //    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

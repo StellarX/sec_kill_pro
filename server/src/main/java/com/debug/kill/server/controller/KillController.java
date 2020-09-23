@@ -91,10 +91,11 @@ public class KillController {
         BaseResponse response=new BaseResponse(StatusCode.Success);
         try {
             //不加分布式锁的前提
-            /*Boolean res=killService.killItemV2(dto.getKillId(),dto.getUserId());
+            Boolean res=killService.killItemV2(dto.getKillId(),dto.getUserId());
+//            Boolean res=killService.killItem(dto.getKillId(),dto.getUserId());
             if (!res){
                 return new BaseResponse(StatusCode.Fail.getCode(),"不加分布式锁-哈哈~商品已抢购完毕或者不在抢购时间段哦!");
-            }*/
+            }
 
             //基于Redis的分布式锁进行控制
             /*Boolean res=killService.killItemV3(dto.getKillId(),dto.getUserId());
@@ -109,10 +110,10 @@ public class KillController {
             }*/
 
             //基于ZooKeeper的分布式锁进行控制
-            Boolean res=killService.killItemV5(dto.getKillId(),dto.getUserId());
-            if (!res){
-                return new BaseResponse(StatusCode.Fail.getCode(),"基于ZooKeeper的分布式锁进行控制-哈哈~商品已抢购完毕或者不在抢购时间段哦!");
-            }
+//            Boolean res=killService.killItemV5(dto.getKillId(),dto.getUserId());
+//            if (!res){
+//                return new BaseResponse(StatusCode.Fail.getCode(),"基于ZooKeeper的分布式锁进行控制-哈哈~商品已抢购完毕或者不在抢购时间段哦!");
+//            }
 
         }catch (Exception e){
             response=new BaseResponse(StatusCode.Fail.getCode(),e.getMessage());
