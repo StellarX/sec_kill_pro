@@ -221,7 +221,7 @@ public class KillService implements IKillService{
         RLock lock=redissonClient.getLock(lockKey);
 
         try {
-            Boolean cacheRes=lock.tryLock(30,10,TimeUnit.SECONDS);
+            Boolean cacheRes=lock.tryLock(30,10,TimeUnit.SECONDS); // 等待30s，过期时间10s
             if (cacheRes){
                 //TODO:核心业务逻辑的处理
                 if (itemKillSuccessMapper.countByKillUserId(killId,userId) <= 0){
@@ -250,7 +250,7 @@ public class KillService implements IKillService{
     @Autowired
     private CuratorFramework curatorFramework;
 
-    private static final String pathPrefix="/kill/zkLock/";
+    private static final String pathPrefix="/kill/zkLock/"; // 结点名称前缀
 
     /**
      * 商品秒杀核心业务逻辑的处理-基于ZooKeeper的分布式锁
@@ -264,8 +264,10 @@ public class KillService implements IKillService{
         Boolean result=false;
 
         InterProcessMutex mutex=new InterProcessMutex(curatorFramework,pathPrefix+killId+userId+"-lock");
+        //InterProcessMutex是zookeeper的一个进程互斥组件                           前缀+结点名称
+
         try {
-            if (mutex.acquire(10L,TimeUnit.SECONDS)){
+            if (mutex.acquire(10L,TimeUnit.SECONDS)){ // 获取锁，尝试等待十秒
 
                 //TODO:核心业务逻辑
                 if (itemKillSuccessMapper.countByKillUserId(killId,userId) <= 0){

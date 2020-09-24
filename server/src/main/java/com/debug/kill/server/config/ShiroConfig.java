@@ -37,17 +37,17 @@ public class ShiroConfig {
         ShiroFilterFactoryBean bean=new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager());
         bean.setLoginUrl("/to/login");
-        bean.setUnauthorizedUrl("/unauth");
+        bean.setUnauthorizedUrl("/unauth"); // 没有授权的  TODO 但有什么区别呢？
 
         Map<String, String> filterChainDefinitionMap=new HashMap<>();
         filterChainDefinitionMap.put("/to/login","anon");
 
         filterChainDefinitionMap.put("/**","anon");
 
-        filterChainDefinitionMap.put("/kill/execute/*","authc");
+        filterChainDefinitionMap.put("/kill/execute/*","authc"); // 认证
         filterChainDefinitionMap.put("/item/detail/*","authc");
 
-        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        bean.setFilterChainDefinitionMap(filterChainDefinitionMap); // 设置过滤器链
         return bean;
     }
 

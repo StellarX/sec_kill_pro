@@ -16,7 +16,7 @@ import org.springframework.core.env.Environment;
  * @Date: 2019/7/2 14:38
  **/
 @Configuration
-public class ZooKeeperConfig {
+public class    ZooKeeperConfig {
 
     @Autowired
     private Environment env;
@@ -32,7 +32,7 @@ public class ZooKeeperConfig {
                 .connectString(env.getProperty("zk.host"))
                 .namespace(env.getProperty("zk.namespace"))
                 //重试策略
-                .retryPolicy(new RetryNTimes(5,1000))
+                .retryPolicy(new RetryNTimes(5,1000)) // 5次， 每次间隔1秒
                 .build();
         curatorFramework.start();
         return curatorFramework;

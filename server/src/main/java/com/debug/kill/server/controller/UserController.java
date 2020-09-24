@@ -52,10 +52,10 @@ public class UserController {
     public String login(@RequestParam String userName, @RequestParam String password, ModelMap modelMap){
         String errorMsg="";
         try {
-            if (!SecurityUtils.getSubject().isAuthenticated()){
+            if (!SecurityUtils.getSubject().isAuthenticated()){ // 判断是否已认证通过
                 String newPsd=new Md5Hash(password,env.getProperty("shiro.encrypt.password.salt")).toString();
-                UsernamePasswordToken token=new UsernamePasswordToken(userName,newPsd);
-                SecurityUtils.getSubject().login(token);
+                UsernamePasswordToken token=new UsernamePasswordToken(userName,newPsd); // 封装成token
+                SecurityUtils.getSubject().login(token); // 登陆
             }
         }catch (UnknownAccountException e){
             errorMsg=e.getMessage();
@@ -87,41 +87,4 @@ public class UserController {
         SecurityUtils.getSubject().logout();
         return "login";
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
