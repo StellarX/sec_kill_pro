@@ -132,7 +132,7 @@ public class KillController {
     //http://localhost:8083/kill/kill/record/detail/343147116421722112
 
     /**
-     * 查看订单详情
+     * 点击邮件链接 查看订单详情
      * @return
      */
     @RequestMapping(value = prefix+"/record/detail/{orderNo}",method = RequestMethod.GET)

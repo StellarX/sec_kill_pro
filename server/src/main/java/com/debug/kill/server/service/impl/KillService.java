@@ -130,7 +130,7 @@ public class KillService implements IKillService{
         //TODO:判断当前用户是否已经抢购过当前商品
         if (itemKillSuccessMapper.countByKillUserId(killId,userId) <= 0){
             //TODO:A.查询待秒杀商品详情
-            ItemKill itemKill=itemKillMapper.selectByIdV2(killId);
+            ItemKill itemKill=itemKillMapper.selectByIdV2(killId); // sql优化，total必须>0
 
             //TODO:判断是否可以被秒杀canKill=1?
             if (itemKill!=null && 1==itemKill.getCanKill() && itemKill.getTotal()>0){
@@ -170,28 +170,26 @@ public class KillService implements IKillService{
         if (itemKillSuccessMapper.countByKillUserId(killId,userId) <= 0){
 
             //TODO:借助Redis的原子操作实现分布式锁-对共享操作-资源进行控制
-            ValueOperations valueOperations=stringRedisTemplate.opsForValue();
+            ValueOperations valueOperations=stringRedisTemplate.opsForValue(); // 获取redis的操作组件
             final String key=new StringBuffer().append(killId).append(userId).append("-RedisLock").toString();
             final String value=RandomUtil.generateOrderCode();
             Boolean cacheRes=valueOperations.setIfAbsent(key,value); //luna脚本提供“分布式锁服务”，就可以写在一起
             //TOOD:redis部署节点宕机了
-            if (cacheRes){
-                stringRedisTemplate.expire(key,30, TimeUnit.SECONDS);
-
+            if (cacheRes){ // 获取到了锁
+                stringRedisTemplate.expire(key,30, TimeUnit.SECONDS); //30秒过期
                 try {
                     ItemKill itemKill=itemKillMapper.selectByIdV2(killId);
                     if (itemKill!=null && 1==itemKill.getCanKill() && itemKill.getTotal()>0){
                         int res=itemKillMapper.updateKillItemV2(killId);
                         if (res>0){
                             commonRecordKillSuccessInfo(itemKill,userId);
-
                             result=true;
                         }
                     }
                 }catch (Exception e){
                     throw new Exception("还没到抢购日期、已过了抢购时间或已被抢购完毕！");
                 }finally {
-                    if (value.equals(valueOperations.get(key).toString())){
+                    if (value.equals(valueOperations.get(key).toString())){ // 保证释放的锁就是之前获取到的锁
                         stringRedisTemplate.delete(key);
                     }
                 }

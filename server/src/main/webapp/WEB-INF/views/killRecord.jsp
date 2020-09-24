@@ -3,7 +3,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <title>商城高并发抢购-抢购成功商品详情页面</title>
+    <title>商城高并发抢购-邮件点击后的商品详情页面</title>
     <%@include file="head.jsp" %>
 </head>
 <body>

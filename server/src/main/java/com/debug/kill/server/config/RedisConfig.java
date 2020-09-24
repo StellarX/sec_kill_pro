@@ -30,14 +30,14 @@ public class RedisConfig {
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
 
-        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer()); // 指定hash存储的key
         return redisTemplate;
     }
 
     @Bean
     public StringRedisTemplate stringRedisTemplate(){
         StringRedisTemplate stringRedisTemplate=new StringRedisTemplate();
-        stringRedisTemplate.setConnectionFactory(redisConnectionFactory);
+        stringRedisTemplate.setConnectionFactory(redisConnectionFactory);  // 设置连接工厂
         return stringRedisTemplate;
     }
 
