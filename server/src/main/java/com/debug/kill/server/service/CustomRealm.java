@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Objects;
 
 /**
- * 用户自定义的realm-用于shiro的认证、授权
+ * 用户自定义的realm-用于shiro的认证、授权 (这个是真正用于认证、授权的)
  * @Author:debug (SteadyJack)
  * @Date: 2019/7/2 17:55
  **/
@@ -29,8 +29,6 @@ public class CustomRealm extends AuthorizingRealm{
 
     @Autowired
     private UserMapper userMapper;
-
-
 
     /**
      * 授权
@@ -48,7 +46,7 @@ public class CustomRealm extends AuthorizingRealm{
      * @return
      * @throws AuthenticationException
      */
-    @Override
+    @Override  //这个方法会获取到登陆时的信息，即UsernamePasswordToken
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token= (UsernamePasswordToken) authenticationToken;
         String userName=token.getUsername();

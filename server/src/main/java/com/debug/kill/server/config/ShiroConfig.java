@@ -20,19 +20,19 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Bean
+//    @Bean
     public CustomRealm customRealm(){
         return new CustomRealm();
     }
 
-    @Bean
+//    @Bean
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager=new DefaultWebSecurityManager();
-        securityManager.setRealm(customRealm());
+        securityManager.setRealm(customRealm()); // 设置 用户自定义的 realm 用于shiro的认证、授权
         return securityManager;
     }
 
-    @Bean
+//    @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(){
         ShiroFilterFactoryBean bean=new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager());
