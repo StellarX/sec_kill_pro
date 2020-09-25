@@ -70,7 +70,7 @@ public class UserController {
             errorMsg="用户登录异常，请联系管理员!";
             e.printStackTrace();
         }
-        if (StringUtils.isBlank(errorMsg)){
+        if (StringUtils.isBlank(errorMsg)){ // 如果没有错误，就重定向到index页面
             return "redirect:/index";
         }else{
             modelMap.addAttribute("errorMsg",errorMsg);
@@ -87,4 +87,10 @@ public class UserController {
         SecurityUtils.getSubject().logout();
         return "login";
     }
+
+    /**
+     * todo:用户注册模块
+     */
+
+
 }

@@ -25,7 +25,7 @@ public class CustomRealm extends AuthorizingRealm{
 
     private static final Logger log= LoggerFactory.getLogger(CustomRealm.class);
 
-    private static final Long sessionKeyTimeOut=3600_000L;
+    private static final Long sessionKeyTimeOut=3600_000L; // 60min
 
     @Autowired
     private UserMapper userMapper;
@@ -64,7 +64,7 @@ public class CustomRealm extends AuthorizingRealm{
             throw new IncorrectCredentialsException("用户名密码不匹配!");
         }
 
-        SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(user.getUserName(),password,getName());
+        SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(user.getUserName(),password,getName());// 主体 密码 当前realm
         setSession("uid",user.getId());
         return info;
     }

@@ -41,7 +41,7 @@ public class RabbitReceiverService {
         try {
             log.info("秒杀异步邮件通知-接收消息:{}",info);
 
-            //TODO:真正的发送邮件....
+            //真正的发送邮件....
             //MailDto dto=new MailDto(env.getProperty("mail.kill.item.success.subject"),"这是测试内容",new String[]{info.getEmail()});
             //mailService.sendSimpleEmail(dto);
 

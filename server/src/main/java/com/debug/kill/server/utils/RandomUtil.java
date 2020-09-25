@@ -26,7 +26,7 @@ public class RandomUtil {
      * @return
      */
     public static String generateOrderCode(){
-        //TODO:时间戳+N为随机数流水号
+        //时间戳+N为随机数流水号
         return dateFormatOne.format(DateTime.now().toDate()) + generateNumber(4);
     }
 

@@ -43,7 +43,7 @@ public class KillController {
 
 
     /***
-     * 商品秒杀核心业务逻辑
+     * 商品秒杀核心处理：登陆认证 + 业务逻辑
      * @param dto
      * @param result
      * @return
@@ -54,7 +54,7 @@ public class KillController {
         if (result.hasErrors() || dto.getKillId()<=0){
             return new BaseResponse(StatusCode.InvalidParams);
         }
-        Object uId=session.getAttribute("uid"); //get user id
+        Object uId=session.getAttribute("uid"); //get user id from session
         if (uId==null){
             return new BaseResponse(StatusCode.UserNotLogin); // user not login yet!
         }

@@ -20,19 +20,19 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-//    @Bean
+    @Bean
     public CustomRealm customRealm(){
         return new CustomRealm();
     }
 
-//    @Bean
+    @Bean
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager=new DefaultWebSecurityManager();
         securityManager.setRealm(customRealm()); // 设置 用户自定义的 realm 用于shiro的认证、授权
         return securityManager;
     }
 
-//    @Bean
+    @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(){
         ShiroFilterFactoryBean bean=new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager());
@@ -44,8 +44,8 @@ public class ShiroConfig {
 
         filterChainDefinitionMap.put("/**","anon");
 
-        filterChainDefinitionMap.put("/kill/execute/*","authc"); // 认证
-        filterChainDefinitionMap.put("/item/detail/*","authc");
+        filterChainDefinitionMap.put("/kill/execute/*","authc"); // 这个目录下的请求都需要认证
+        filterChainDefinitionMap.put("/item/detail/*","authc"); // 同上
 
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap); // 设置过滤器链
         return bean;
