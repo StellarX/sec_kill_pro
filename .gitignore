@@ -7,6 +7,8 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 
+target/
+
 ### IntelliJ IDEA ###
 .idea
 HELP.md
