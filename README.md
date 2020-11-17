@@ -1,4 +1,4 @@
 # sec_kill_pro
-a highly concurrent second kill sys using SpringBoot、RabbitMQ、Zookeeper...
+- a highly concurrent second kill sys using SpringBoot、RabbitMQ、Zookeeper...
 
-git study test5
+- remember to start rabbitmq, zookeeper and redis when you run this project
