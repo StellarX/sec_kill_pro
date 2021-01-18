@@ -51,17 +51,17 @@ public class CustomRealm extends AuthorizingRealm{
         UsernamePasswordToken token= (UsernamePasswordToken) authenticationToken;
         String userName=token.getUsername();
         String password=String.valueOf(token.getPassword());
-        log.info("当前登录的用户名={} 密码={} ",userName,password);
+        log.info("Current User={} PassWord={} ",userName,password);
 
         User user=userMapper.selectByUserName(userName);
         if (user==null){
-            throw new UnknownAccountException("用户名不存在!");
+            throw new UnknownAccountException("User Not Exist!");
         }
         if (!Objects.equals(1,user.getIsActive().intValue())){
-            throw new DisabledAccountException("当前用户已被禁用!");
+            throw new DisabledAccountException("Current User Is Forbidden!");
         }
         if (!user.getPassword().equals(password)){
-            throw new IncorrectCredentialsException("用户名密码不匹配!");
+            throw new IncorrectCredentialsException("Username and Password is not Match!");
         }
 
         SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(user.getUserName(),password,getName());// 主体 密码 当前realm

@@ -29,24 +29,15 @@ import javax.servlet.http.HttpSession;
  **/
 @Controller
 public class KillController {
-
     private static final Logger log = LoggerFactory.getLogger(KillController.class);
-
     private static final String prefix = "kill";
-
     @Autowired
     private IKillService killService;
-
     @Autowired
     private ItemKillSuccessMapper itemKillSuccessMapper;
 
-
-
     /***
      * 商品秒杀核心处理：登陆认证 + 业务逻辑
-     * @param dto
-     * @param result
-     * @return
      */
     @RequestMapping(value = prefix+"/execute",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -74,13 +65,8 @@ public class KillController {
         return response;
     }
 
-
-
     /***
      * 商品秒杀核心业务逻辑-用于压力测试
-     * @param dto
-     * @param result
-     * @return
      */
     @RequestMapping(value = prefix+"/execute/lock",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
