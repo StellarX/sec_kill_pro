@@ -25,7 +25,7 @@
           THEN 1
         ELSE 0
         END
-      )      AS canKill
+      ) AS canKill
     FROM item_kill AS a LEFT JOIN item AS b ON b.id = a.item_id
     WHERE a.is_active = 1
   </select>
@@ -44,14 +44,6 @@
     FROM item_kill AS a LEFT JOIN item AS b ON b.id = a.item_id
     WHERE a.is_active = 1 AND a.id= #{id}
   </select>
-
-
-
-
-
-
-
-
 
   <!--抢购商品，剩余数量减一-->
   <update id="updateKillItem">

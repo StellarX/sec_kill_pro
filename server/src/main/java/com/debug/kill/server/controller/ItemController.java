@@ -1,6 +1,4 @@
-package com.debug.kill.server.controller;/**
- * Created by Administrator on 2019/6/16.
- */
+package com.debug.kill.server.controller;
 
 import com.debug.kill.model.entity.ItemKill;
 import com.debug.kill.server.service.IItemService;
@@ -17,8 +15,6 @@ import java.util.List;
 
 /**
  * 待秒杀商品controller
- * @Author:debug (SteadyJack)
- * @Date: 2019/6/16 22:41
  **/
 @Controller
 public class ItemController {
@@ -50,7 +46,6 @@ public class ItemController {
 
     /**
      * 获取待秒杀商品的详情
-     * @return
      */
     @RequestMapping(value = prefix+"/detail/{id}",method = RequestMethod.GET)
     public String detail(@PathVariable Integer id,ModelMap modelMap){
