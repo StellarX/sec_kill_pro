@@ -111,7 +111,7 @@ public class RabbitmqConfig {
 
     //构建秒杀成功之后-订单超时未支付的死信队列消息模型
 
-    //构建死信交换机和死信路由
+    //构建延迟队列， 延迟后的消息路由到死信队列
     @Bean
     public Queue successKillDeadQueue(){
         Map<String, Object> argsMap= Maps.newHashMap();
@@ -128,13 +128,14 @@ public class RabbitmqConfig {
         return new TopicExchange(env.getProperty("mq.kill.item.success.kill.dead.prod.exchange"),true,false);
     }
 
-    //将基本交换机+基本路由 绑定到死信队列
+    //将基本交换机+基本路由 绑定到延迟队列
     @Bean
     public Binding successKillDeadProdBinding(){
-        return BindingBuilder.bind(successKillDeadQueue()).to(successKillDeadProdExchange()).with(env.getProperty("mq.kill.item.success.kill.dead.prod.routing.key"));
+        return BindingBuilder.bind(successKillDeadQueue()).to(successKillDeadProdExchange())
+                .with(env.getProperty("mq.kill.item.success.kill.dead.prod.routing.key"));
     }
 
-    //构建真正的队列
+    //构建死信队列
     @Bean
     public Queue successKillRealQueue(){
         return new Queue(env.getProperty("mq.kill.item.success.kill.dead.real.queue"),true);
@@ -146,9 +147,10 @@ public class RabbitmqConfig {
         return new TopicExchange(env.getProperty("mq.kill.item.success.kill.dead.exchange"),true,false);
     }
 
-    //死信交换机+死信路由->真正队列 的绑定
+    //死信交换机+死信路由->死信队列 的绑定
     @Bean
     public Binding successKillDeadBinding(){
-        return BindingBuilder.bind(successKillRealQueue()).to(successKillDeadExchange()).with(env.getProperty("mq.kill.item.success.kill.dead.routing.key"));
+        return BindingBuilder.bind(successKillRealQueue()).to(successKillDeadExchange())
+                .with(env.getProperty("mq.kill.item.success.kill.dead.routing.key"));
     }
 }
