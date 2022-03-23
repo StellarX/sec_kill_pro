@@ -140,7 +140,7 @@ public class RabbitmqConfig {
         return new Queue(env.getProperty("mq.kill.item.success.kill.dead.real.queue"),true);
     }
 
-    //构建 死信交换机  死信交换机前面不是已经创建过了？   待处理
+    //构建 死信交换机
     @Bean
     public TopicExchange successKillDeadExchange(){
         return new TopicExchange(env.getProperty("mq.kill.item.success.kill.dead.exchange"),true,false);
